@@ -1,0 +1,25 @@
+FROM ubuntu:trusty
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        asciidoc \
+        autoconf \
+        automake \
+        build-essential \
+        ca-certificates \
+        docbook-xml \
+        docbook-xsl \
+        git \
+        gperf \
+        xsltproc \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN git clone https://github.com/ccache/ccache /ccache-build
+
+RUN cd /ccache-build \
+    && ./autogen.sh \
+    && ./configure --prefix=/ccache-install \
+    && make "-j$(nproc)" install \
+    && make clean
+
+ENV PATH=$PATH:/ccache-install/bin
