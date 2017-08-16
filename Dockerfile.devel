@@ -18,8 +18,6 @@ RUN git clone https://github.com/ccache/ccache /ccache-build
 
 RUN cd /ccache-build \
     && ./autogen.sh \
-    && ./configure --prefix=/ccache-install \
+    && ./configure --prefix=/usr/local \
     && make "-j$(nproc)" install \
     && make clean
-
-ENV PATH=$PATH:/ccache-install/bin

@@ -1,4 +1,4 @@
 FROM ccache:devel AS devel
 FROM ubuntu:trusty AS base
 
-COPY --from=devel /ccache-install /
+COPY --from=devel /usr/local /usr/local
